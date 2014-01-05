@@ -131,7 +131,7 @@ vm = ../avian
 vm-build = $(vm)/build/$(platform)-$(arch)$(options)
 converter = $(vm-build)/binaryToObject/binaryToObject
 bootimage-generator = $(vm-build)/bootimage-generator
-proguard = ~/bin/proguard4.11/lib/proguard.jar
+proguard = $(PROGUARD_HOME)/lib/proguard.jar
 
 resources-object = $(build)/resources-jar.o
 
