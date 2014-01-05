@@ -7,12 +7,14 @@ ifeq ($(sim),true)
 	target = iPhoneSimulator
 	sdk = iphonesimulator$(ios-version)
 	arch = i386
+	arch-lib = i386
 	arch-flag = -arch i386
 	release = Release-iphonesimulator
 else
 	target = iPhoneOS
 	sdk = iphoneos$(ios-version)
 	arch = arm
+	arch-lib = armv7
 	arch-flag = -arch armv7
 	release = Release-iphoneos
 endif
@@ -98,13 +100,13 @@ ifneq ($(android),)
 	options := $(options)-android
 
 	android-archives = \
-		$(android)/external/icu4c/lib/libicui18n.a \
-		$(android)/external/icu4c/lib/libicuuc.a \
-		$(android)/external/icu4c/lib/libicudata.a \
-		$(android)/external/fdlibm/libfdm.a \
-		$(android)/external/expat/.libs/libexpat.a \
-		$(android)/openssl-upstream/libssl.a \
-		$(android)/openssl-upstream/libcrypto.a
+		$(android)/../build/$(arch-lib)/libicui18n.a \
+		$(android)/../build/$(arch-lib)/libicuuc.a \
+		$(android)/../build/$(arch-lib)/libicudata.a \
+		$(android)/../build/$(arch-lib)/libfdm.a \
+		$(android)/../build/$(arch-lib)/libexpat.a \
+		$(android)/../build/$(arch-lib)/libssl.a \
+		$(android)/../build/$(arch-lib)/libcrypto.a
 
 	classpath-lflags = $(android-archives) -lstdc++
 
@@ -129,7 +131,7 @@ vm = ../avian
 vm-build = $(vm)/build/$(platform)-$(arch)$(options)
 converter = $(vm-build)/binaryToObject/binaryToObject
 bootimage-generator = $(vm-build)/bootimage-generator
-proguard = ../proguard4.8/lib/proguard.jar
+proguard = ~/bin/proguard4.11/lib/proguard.jar
 
 resources-object = $(build)/resources-jar.o
 
